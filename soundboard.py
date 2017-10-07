@@ -11,13 +11,13 @@ def index():
 def main():
     set_package("default")
     return render_template("test.html")
-
+"""
 @app.route('/test/%s/%s' % (package_name, button_name))
 def play(button_name):
     for button in buttons:
         if button_name == button.name:
             button.play()
-
+"""
 @app.route('/test/<package_name>')
 def set_package(package_name):
     for package in packages:
@@ -65,7 +65,7 @@ buttons = []
 def dump_buttons():
     button_dictionary = {}
     for b in buttons:
-        button_dictionary.add(b.name, b.audio_file)
+        button_dictionary[b.name] = b.audio_file
     return json.dumps(button_dictionary)
 
 if __name__ == "__main__":
