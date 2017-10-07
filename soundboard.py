@@ -6,30 +6,33 @@ home = "http://127.0.0.1:5000/"
 
 @app.route("/")
 def index():
-    return redirect("%smainpage.html" % home, code=302)
+    return redirect("%stest.html" % home, code=302)
+
+@app.route('/test.html')
+def main():
+    setPackage("default")
+
+@app.route('/test/<button_name>.html')
+def play(button_name):
+    for button in
 
 default = Package("default")
 default.addButton(Button("d1", fileName1)
 default.addButton(Button("d2"), fileName2)
 
 packages = [default]
-buttons =
-
-@app.route('/url.html')
-def main():
-    setPackage("default")
+buttons = []
 
 def setPackage(packageName):
     for package in packages:
         if packageName == package.name:
-
+            buttons = package.buttons
 
 class Package:
 
     def __init__(self, name):
         self.name = name
         self.buttons = []
-        self.button_dictionary =
 
     def setName(self, name):
         self.name = name
@@ -50,6 +53,3 @@ class Button:
 
     def play(self):
         #play self.audioFile
-
-@app.route('/url/<button_name>.html')
-def play(button_name):
