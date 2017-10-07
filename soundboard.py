@@ -7,18 +7,19 @@ home = "http://127.0.0.1:5000/"
 def index():
     return redirect("%stest.html" % home, code=302)
 
-@app.route('/test.html')
+@app.route('/test')
 def main():
     setPackage("default")
     return render_template("test.html")
 
-@app.route('/test/<button_name>.html')
+@app.route('/test/%s/%s' % (package_name, button_name))
 def play(button_name):
     for button in buttons:
         if button_name == button.name:
             button.play()
 
-def setPackage(packageName):
+@app.route('/test/<package_name>')
+def setPackage(package_name):
     for package in packages:
         if packageName == package.name:
             buttons = package.buttons
