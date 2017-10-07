@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, make_response, redirect
-import api
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates')
 
 home = "http://127.0.0.1:5000/"
 
@@ -11,17 +10,13 @@ def index():
 @app.route('/test.html')
 def main():
     setPackage("default")
+    return render_template("test.html")
 
 @app.route('/test/<button_name>.html')
 def play(button_name):
-    for button in
-
-default = Package("default")
-default.addButton(Button("d1", fileName1)
-default.addButton(Button("d2"), fileName2)
-
-packages = [default]
-buttons = []
+    for button in buttons:
+        if button_name == button.name:
+            button.play()
 
 def setPackage(packageName):
     for package in packages:
@@ -38,7 +33,7 @@ class Package:
         self.name = name
 
     def addButton(self, button):
-        self.buttons.add(button)
+        self.buttons.append(button)
 
     def changeButton(self, name, newButton):
         for button in self.buttons:
@@ -51,5 +46,15 @@ class Button:
         self.name = name
         self.audioFile = audioFile
 
-    def play(self):
+    #def play(self):
         #play self.audioFile
+
+default = Package("default")
+default.addButton(Button("d1", "fileName1"))
+default.addButton(Button("d2", "fileName2"))
+
+packages = [default]
+buttons = []
+
+if __name__ == "__main__":
+    app.run()
