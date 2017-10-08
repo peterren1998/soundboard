@@ -9,10 +9,11 @@
         <form>
             sound name: <input type="text" name="name"><br>
        
-        <button onclick="toggleRecording(this)" type="button">Record/Stop</button>
-        <input type="hidden" name="bitstring">
-        <button name="done" type="submit" formmethod="post">done</button>
-        <a href="#" id="save">Hi</a>
+            <input type="hidden" name="bitstring">
+            <button onclick="toggleRecording(this)" type="button">Record</button>
+            <button onclick="toggleRecording(this)" type="button" formmethod="post">Stop</button>
+            <button type="button" formmethod="get">Done</button>
+            <a href="#" id="save">Hi</a>
         </form>
     </body>
 </html>
