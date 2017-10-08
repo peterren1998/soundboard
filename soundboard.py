@@ -28,7 +28,7 @@ def create_board():
     if request.method == "POST" and request.form['bitstring']: #when stop button is pressed
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
         return redirect("%sreal2.html" % home, code=302)
-    elif request.method == "POST" and request.form['fuck_kd'] == "submit": #when submit is clicked
+    elif request.method == "GET": #when submit is clicked
         boards.append(Board(board_name, local_buttons))
         return redirect("%sreal.html" % home, code=302)
     return render_template("real2.html", title = board_name)
