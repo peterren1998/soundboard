@@ -12,10 +12,10 @@ def index():
 @app.route('/real.html', methods=["GET","POST"])
 def main():
     if request.method == "POST":
-        if request.form['change'] and request.form['change'] in boards.keys():
-            return redirect("%sreal/%s.html" % (home,request.form['change']), code=302)
+        if request.form['board'] and request.form['board'] in boards.keys():
+            return redirect("%sreal/%s.html" % (home,request.form['board']), code=302)
         else:
-            return redirect("%sreal2/%s.html" % (home,request.form['change']), code=302)
+            return redirect("%sreal2/%s.html" % (home,request.form['board']), code=302)
     buttons_dictionary = {}
     for button in buttons:
         buttons_dictionary[button.name] = button.audio_file
