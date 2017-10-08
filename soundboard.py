@@ -7,42 +7,41 @@ local_buttons = []
 
 @app.route("/")
 def index():
-    return redirect("%stest.html" % home, code=302)
+    return redirect("%sreal.html" % home, code=302)
 
-@app.route('/test.html', methods=["GET","POST"])
+@app.route('/real.html', methods=["GET","POST"])
 def main():
     if request.method == "POST":
         if request.form['change'] and request.form['change'] in boards.keys():
-            return redirect("%s"+request.form['change'] % home)
+            return redirect("%sreal/"+request.form['change'] % home, code=302)
         else:
             return redirect("%screate_board.html" % home, code=302)
-    return set_board("default")
+        buttons_dictionary = {}
+        for button in buttons:
+            buttons_dictionary[button.name] = button.audio_file
+        return render_template("real.html", title = board_name, buttons = buttons_dictionary)
 
-@app.route('/test2.html')
-def main2():
-    return render_template("test2.html")
+#@app.route('/buttons/<button_name>.html')
+#def play(button_name):
+#    for button in buttons:
+#        if button.name == button_name:
+#            return render_template("real.html", press=button_name)
 
-@app.route('/buttons/<button_name>.html')
-def play(button_name):
-    for button in buttons:
-        if button.name == button_name:
-            return render_template("real.html", press=button_name)
-
-@app.route('/test/<board_name>.html')
+@app.route('/real/<board_name>.html')
 def set_board(board_name):
     for board in boards:
         if board_name == board.name:
             buttons = board.buttons
-    return render_template("test.html", json = dump_buttons(), title = board_name, data = [{board.name : board} for board in boards])
+    return redirect('%sreal.html' % home, code=302)
 
 @app.route('/create_board.html', methods = ['GET', 'POST'])
 def create_board():
-    if request.method == "POST" and request.name == "Stop":
+    if request.method == "POST" and request.name == "Stop": #when stop button is pressed
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
         return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Submit":
+    elif request.method == "POST" and request.name == "Submit": #when new board is finished
         boards.append(Board(request.form['board_name'], local_buttons))
-        return redirect("%stest.html" % home, code=302)
+        return redirect("%sreal.html" % home, code=302)
 
 
 """
@@ -90,13 +89,13 @@ default.add_button(Button("d1", "fileName1"))
 default.add_button(Button("d2", "fileName2"))
 
 boards = [default]
-buttons = []
-
+buttons = default.buttons
+"""
 def dump_buttons():
     button_dictionary = {}
     for b in buttons:
         button_dictionary[b.name] = b.audio_file
     return json.dumps(button_dictionary)
-
+"""
 if __name__ == "__main__":
     app.run()
