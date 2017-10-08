@@ -16,10 +16,10 @@ def main():
             return redirect("%sreal/"+request.form['change'] % home, code=302)
         else:
             return redirect("%screate_board.html" % home, code=302)
-        buttons_dictionary = {}
-        for button in buttons:
-            buttons_dictionary[button.name] = button.audio_file
-        return render_template("real.html", title = cur_board.name, buttons = buttons_dictionary)
+    buttons_dictionary = {}
+    for button in buttons:
+        buttons_dictionary[button.name] = button.audio_file
+    return render_template("real.html", title = cur_board.name, buttons = buttons_dictionary)
 
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
