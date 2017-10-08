@@ -7,7 +7,7 @@ home = "http://127.0.0.1:5000/"
 def index():
     return redirect("%stest.html" % home, code=302)
 
-@app.route('/test.html',methods=["GET","POST"])
+@app.route('/test.html', methods=["GET","POST"])
 def main():
     if request.method == "POST":
         return redirect("%stest2.html" % home, code=302)
