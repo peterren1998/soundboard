@@ -16,7 +16,7 @@
         {% endblock %}
 
         {% for k in d %}
-        <button onclick="decode({{d.k}})" type="button">{{k}}</button>
+        <button onclick="decode({{d[k]}})" type="button">{{k}}</button>
         <br>
         {% endfor %}
     </body>

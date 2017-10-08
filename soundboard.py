@@ -7,11 +7,11 @@ local_buttons = []
 
 @app.route("/")
 def index():
-    return redirect("%sreal.html" % home, code=302)
+    return redirect("%sreal2.html" % home, code=302)
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
-    return render_template("real.html", title = "default", d={"name":123123})
+    return render_template("real.html", title = "default", d={"name":1010101})
 
 
 #@app.route('/buttons/<button_name>.html')
@@ -20,13 +20,9 @@ def main():
 #        if button.name == button_name:
 #            return render_template("real.html", press=button_name)
 
-@app.route('/real/<board_name>.html')
-def set_board(board_name):
-    for board in boards:
-        if board_name == board.name:
-            buttons = board.buttons
-            cur_board = board
-    return redirect('%sreal.html' % home, code=302)
+@app.route('/real2.html')
+def set_board():
+    return render_template("real2.html", title="my title")
 
 @app.route('/create_board.html', methods = ['GET', 'POST'])
 def create_board():

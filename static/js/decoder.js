@@ -11,6 +11,7 @@ function str2ab(str) {
 }
 
 function decode(data) {
+    console.log(data);
     data = str2ab(data);
 
     source = audioCtx.createBufferSource();
