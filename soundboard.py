@@ -13,7 +13,6 @@ def index():
 def main():
     return render_template("real.html", title = "default", d={"name":1010101})
 
-
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
 #    for button in buttons:
@@ -24,14 +23,15 @@ def main():
 def set_board():
     return render_template("real2.html", title="my title")
 
-@app.route('/create_board.html', methods = ['GET', 'POST'])
+@app.route('/real2/<board_name>.html', methods = ['GET', 'POST'])
 def create_board():
-    if request.method == "POST" and request.name == "Stop": #when stop button is pressed
+    if request.method == "POST" and request.form['bitstring']: #when stop button is pressed
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
-        return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Submit": #when new board is finished
-        boards.append(Board(request.form['board_name'], local_buttons))
+        return redirect("%sreal2.html" % home, code=302)
+    elif request.method == "POST" and request.form['fuck_kd'] == "submit": #when submit is clicked
+        boards.append(Board(board_name, local_buttons))
         return redirect("%sreal.html" % home, code=302)
+    return render_template("real2.html", title = board_name)
 
 
 """
