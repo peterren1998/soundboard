@@ -11,7 +11,7 @@ def index():
 
 @app.route('/test.html', methods=["GET","POST"])
 def main():
-    if request.method == "POST" and request.name == "imma button":
+    if request.method == "POST" and request.form['change'] == "":
         return redirect("%stest2.html" % home, code=302)
     elif request.method == "POST" and request.name == "Create New Board":
         return redirect("%screate_board.html" % home, code=302)
