@@ -3,6 +3,8 @@ app = Flask(__name__, static_folder='templates')
 
 home = "http://127.0.0.1:5000/"
 
+local_buttons = []
+
 @app.route("/")
 def index():
     return redirect("%stest.html" % home, code=302)
@@ -11,29 +13,39 @@ def index():
 def main():
     set_board("default")
     return render_template("test.html")
-"""
+
 @app.route('/test/%s/%s.html' % (board_name, button_name))
-def play(button_name):
-    for button in buttons:
-        if button_name == button.name:
-            button.play()
-"""
+
+
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
     for board in boards:
         if board_name == board.name:
             buttons = board.buttons
-    dump_buttons()
+    return dump_buttons()
 
-#@app.route('/test/create_board')
-#def create_board():
+@app.route('/test/create_board/record.html)
+def save_audio():
+    audio_dictionary = json.loads(request.data)
+    key = audio_dictionary.keys()[0]
+    audio_buttons.append(Button(key, audio_dictionary[key]))
 
+@app.route('/test/create_board/save_package')
+def save_board():
+    board_dictionary = json.loads(request.data)
+    key = board_dictionary.keys()[0]
+    boards.append(Board(board_dictionary[key], local_buttons))
 
-class Package:
+class Board:
 
     def __init__(self, name):
         self.name = name
         self.buttons = []
+
+    def __init__(self, name, buttons):
+        self.name = name
+        self.buttons = local_buttons
+        local_buttons = []
 
     def set_name(self, name):
         self.name = name
