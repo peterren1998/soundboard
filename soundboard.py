@@ -9,24 +9,24 @@ def index():
 
 @app.route('/test.html')
 def main():
-    set_package("default")
+    set_board("default")
     return render_template("test.html")
 """
-@app.route('/test/%s/%s.html' % (package_name, button_name))
+@app.route('/test/%s/%s.html' % (board_name, button_name))
 def play(button_name):
     for button in buttons:
         if button_name == button.name:
             button.play()
 """
-@app.route('/test/<package_name>.html')
-def set_package(package_name):
-    for package in packages:
-        if package_name == package.name:
-            buttons = package.buttons
+@app.route('/test/<board_name>.html')
+def set_board(board_name):
+    for board in boards:
+        if board_name == board.name:
+            buttons = board.buttons
     dump_buttons()
 
-#@app.route('/test/create_package')
-#def create_package():
+#@app.route('/test/create_board')
+#def create_board():
 
 
 class Package:
@@ -59,7 +59,7 @@ default = Package("default")
 default.add_button(Button("d1", "fileName1"))
 default.add_button(Button("d2", "fileName2"))
 
-packages = [default]
+boards = [default]
 buttons = []
 
 def dump_buttons():
