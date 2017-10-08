@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
-        <script src="../js/recorder/recorder.js"></script>
-        <script src="../js/main.js"></script>
+        <script src="/static/js/recorder/recorder.js"></script>
+        <script src="/static/js/main.js"></script>
     </head>
     <body style="background-color:powderblue">
         <p style="color:red" title="title">Hello World</p>
@@ -26,6 +26,7 @@ function hello(str) {
             <button type="submit" formmethod="post">submit</button>
         </form>
         <br>
-        <img src="templates/peter.png">
+        <img src="/static/peter.png" alt="Peter" onclick="toggleRecording(this);">
+        <a href="#" id="save">Hi</a>
     </body>
 </html>
