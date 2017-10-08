@@ -11,33 +11,29 @@ def index():
 
 @app.route('/test.html', methods=["GET","POST"])
 def main():
-    if request.method == "POST" and request.form['change'] == "":
-        return redirect("%stest2.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Create New Board":
-        return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "GET": #Anything from the drop-down menu goes here.
-        return redirect("%s"+request.name)
-    elif request.method == "POST":
-        return play(request.name)
-    #set_board("default")
-    return render_template("test.html", title = "default", data = [{board.name : board} for board in boards])
+    if request.method == "POST":
+        if request.form['change'] and request.form['change'] in boards.keys():
+            return redirect("%s"+request.form['change'] % home)
+        else:
+            return redirect("%screate_board.html" % home, code=302)
+    return set_board("default")
 
 @app.route('/test2.html')
 def main2():
     return render_template("test2.html")
 
+@app.route('/buttons/<button_name>.html')
 def play(button_name):
     for button in buttons:
-        if button_name == button.name:
-            data = json.dumps(button.audio_file)
-            return make_response(data, 200)
+        if button.name == button_name:
+            return render_template("real.html", press=button_name)
 
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
     for board in boards:
         if board_name == board.name:
             buttons = board.buttons
-    return dump_buttons()
+    return render_template("test.html", json = dump_buttons(), title = board_name, data = [{board.name : board} for board in boards])
 
 @app.route('/create_board.html', methods = ['GET', 'POST'])
 def create_board():
