@@ -7,22 +7,22 @@ local_buttons = []
 
 @app.route("/")
 def index():
-    return redirect("%stest.html" % home, code=302)
+    return redirect("%sreal.html" % home, code=302)
 
-@app.route('/test.html', methods=["GET","POST"])
+@app.route('/real.html', methods=["GET","POST"])
 def main():
-    if request.method == "POST" and request.name == "imma button":
+    if request.method == "POST" and request.form["change"] == "submit":
         return redirect("%stest2.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Create New Board":
-        return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "POST":
-        return play(request.name)
-    #set_board("default")
-    return render_template("test.html")
+
+    return render_template("real.html", title="title_board", data=[{"name": "1"},{"name": "2"},{"name": "3"},{"name": "4"},{"name": "5"},{"name": "6"},{"name": "7"},{"name": "8"}])
 
 @app.route('/test2.html')
 def main2():
     return render_template("test2.html")
+
+@app.route('/test3.html')
+def main3():
+    return render_template("test3.html")
 
 def play(button_name):
     for button in buttons:
@@ -86,16 +86,13 @@ class Button:
         self.audio_file = audio_file
 """
     def play(self):
-"""
-
 
 default = Package("default")
 default.add_button(Button("d1", "fileName1"))
 default.add_button(Button("d2", "fileName2"))
-
 boards = [default]
 buttons = []
-
+"""
 def dump_buttons():
     button_dictionary = {}
     for b in buttons:
