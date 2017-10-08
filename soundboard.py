@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, make_response, redirect, json
-app = Flask(__name__, static_folder='templates')
+app = Flask(__name__)
 
 home = "http://127.0.0.1:5000/"
 
@@ -7,11 +7,16 @@ home = "http://127.0.0.1:5000/"
 def index():
     return redirect("%stest.html" % home, code=302)
 
-@app.route('/test.html')
+@app.route('/test.html',methods=["GET","POST"])
 def main():
-    set_board("default")
+    if request.method == "POST":
+        return redirect("%stest2.html" % home, code=302)
+    #set_board("default")
     return render_template("test.html")
 
+@app.route('/test2.html')
+def main2():
+    return render_template("test2.html")
 """
 @app.route('/test/%s/%s.html' % (board_name, button_name))
 def play(button_name):
