@@ -13,25 +13,27 @@ def index():
 def main():
     if request.method == "POST":
         if request.form['board'] and request.form['board'] in [board.name for board in boards]:
-            return redirect("%sreal/%s.html" % (home,request.form['board']), code=302)
-        else:
-            return redirect("%sreal2/%s.html" % (home,request.form['board']), code=302)
+            for board in boards:
+                if request.form['board'] == board.name:
+                    cur_board = board
+                    buttons = cur_board.buttons
+                    return redirect('%sreal.html' % home, code=302)
     buttons_dictionary = {}
     for button in buttons:
         buttons_dictionary[button.name] = button.audio_file
-    return render_template("real.html", title = cur_board.name, buttons = buttons_dictionary)
+    return render_template("real.html", title = cur_board.name, d = buttons_dictionary)
 
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
 #    for button in buttons:
 #        if button.name == button_name:
 #            return render_template("real.html", press=button_name)
-
+"""
 @app.route('/real2.html')
 def set_board():
     return render_template("real2.html", title="my title")
-
-@app.route('/real2/<board_name>.html', methods = ['GET', 'POST'])
+"""
+@app.route('/real2.html', methods = ['GET', 'POST'])
 def create_board():
     if request.method == "POST" and request.form['bitstring']: #when stop button is pressed
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
