@@ -15,10 +15,12 @@ def main():
         return redirect("%stest2.html" % home, code=302)
     elif request.method == "POST" and request.name == "Create New Board":
         return redirect("%screate_board.html" % home, code=302)
+    elif request.method == "GET": #Anything from the drop-down menu goes here.
+        return redirect("%s"+request.name)
     elif request.method == "POST":
         return play(request.name)
     #set_board("default")
-    return render_template("test.html")
+    return render_template("test.html", title = "default", data = [{board.name : board} for board in boards])
 
 @app.route('/test2.html')
 def main2():
@@ -27,7 +29,7 @@ def main2():
 def play(button_name):
     for button in buttons:
         if button_name == button.name:
-            json.dumps(button.audio_file)
+            data = json.dumps(button.audio_file)
             return make_response(data, 200)
 
 @app.route('/test/<board_name>.html')
@@ -41,8 +43,10 @@ def set_board(board_name):
 def create_board():
     if request.method == "POST" and request.name == "Stop":
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
+        return redirect("%screate_board.html" % home, code=302)
     elif request.method == "POST" and request.name == "Submit":
         boards.append(Board(request.form['board_name'], local_buttons))
+        return redirect("%stest.html" % home, code=302)
 
 
 """
@@ -59,13 +63,9 @@ def save_board():
 """
 class Board:
 
-    def __init__(self, name):
+    def __init__(self, name, buttons = local_buttons):
         self.name = name
-        self.buttons = []
-
-    def __init__(self, name, buttons):
-        self.name = name
-        self.buttons = local_buttons
+        self.buttons = buttons
         local_buttons = []
 
     def set_name(self, name):
@@ -89,7 +89,7 @@ class Button:
 """
 
 
-default = Package("default")
+default = Board("default")
 default.add_button(Button("d1", "fileName1"))
 default.add_button(Button("d2", "fileName2"))
 
