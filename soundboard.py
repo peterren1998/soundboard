@@ -11,6 +11,9 @@ def index():
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
+    return render_template("real.html")
+
+"""
     if request.method == "POST":
         if request.form['board'] and request.form['board'] in [board.name for board in boards]:
             return redirect("%sreal/%s.html" % (home,request.form['board']), code=302)
@@ -21,11 +24,12 @@ def main():
         buttons_dictionary[button.name] = button.audio_file
     return render_template("real.html", title = cur_board.name, buttons = buttons_dictionary)
 
-#@app.route('/buttons/<button_name>.html')
-#def play(button_name):
-#    for button in buttons:
-#        if button.name == button_name:
-#            return render_template("real.html", press=button_name)
+@app.route('/buttons/<button_name>.html')
+def play(button_name):
+    for button in buttons:
+        if button.name == button_name:
+            return render_template("real.html", press=button_name)
+"""
 
 @app.route('/real2.html')
 def set_board():
