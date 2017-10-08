@@ -13,9 +13,9 @@ def index():
 def main():
     if request.method == "POST":
         if request.form['change'] and request.form['change'] in boards.keys():
-            return redirect("%sreal/"+request.form['change'] % home, code=302)
+            return redirect("%sreal/"+request.form['change']+".html" % home, code=302)
         else:
-            return redirect("%screate_board.html" % home, code=302)
+            return redirect("%sreal2/"+request.form['change']+".html" % home, code=302)
     buttons_dictionary = {}
     for button in buttons:
         buttons_dictionary[button.name] = button.audio_file
@@ -35,14 +35,15 @@ def set_board(board_name):
             cur_board = board
     return redirect('%sreal.html' % home, code=302)
 
-@app.route('/create_board.html', methods = ['GET', 'POST'])
+@app.route('/real2/<board_name>.html', methods = ['GET', 'POST'])
 def create_board():
-    if request.method == "POST" and request.name == "Stop": #when stop button is pressed
+    if request.method == "POST" and request.form['bitstring']: #when stop button is pressed
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
-        return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Submit": #when new board is finished
-        boards.append(Board(request.form['board_name'], local_buttons))
+        return redirect("%sreal2.html" % home, code=302)
+    elif request.method == "POST" and request.form['fuck_kd'] == "submit": #when submit is clicked
+        boards.append(Board(board_name, local_buttons))
         return redirect("%sreal.html" % home, code=302)
+    return render_template("real2.html", title = board_name)
 
 
 """
