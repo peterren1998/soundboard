@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, make_response, redirect, json
-app = Flask(__name__, static_folder='templates')
+app = Flask(__name__)
 
 home = "http://127.0.0.1:5000/"
 
@@ -9,13 +9,16 @@ local_buttons = []
 def index():
     return redirect("%stest.html" % home, code=302)
 
-@app.route('/test.html')
+@app.route('/test.html', methods=["GET","POST"])
 def main():
-    set_board("default")
+    if request.method == "POST":
+        return redirect("%stest2.html" % home, code=302)
+    #set_board("default")
     return render_template("test.html")
 
-@app.route('/test/%s/%s.html' % (board_name, button_name))
-
+@app.route('/test2.html')
+def main2():
+    return render_template("test2.html")
 
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
@@ -24,17 +27,15 @@ def set_board(board_name):
             buttons = board.buttons
     return dump_buttons()
 
-@app.route('/test/create_board/record.html)
+@app.route('/test/create_board/record.html', methods = ['GET', 'POST'])
 def save_audio():
-    audio_dictionary = json.loads(request.data)
-    key = audio_dictionary.keys()[0]
-    audio_buttons.append(Button(key, audio_dictionary[key]))
+    if request.method == 'POST':
+        local_buttons.append(Button(request.form['name'], request.form['bitstring']))
 
-@app.route('/test/create_board/save_package')
+@app.route('/test/create_board/save_package', methods = ['GET', 'POST'])
 def save_board():
-    board_dictionary = json.loads(request.data)
-    key = board_dictionary.keys()[0]
-    boards.append(Board(board_dictionary[key], local_buttons))
+    if request.method == 'POST':
+        boards.append(Board(request.form['name'], local_buttons))
 
 class Board:
 
