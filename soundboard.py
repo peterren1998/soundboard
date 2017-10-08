@@ -11,15 +11,7 @@ def index():
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
-    if request.method == "POST":
-        if request.form['change'] and request.form['change'] in boards.keys():
-            return redirect("%sreal/"+request.form['change'] % home, code=302)
-        else:
-            return redirect("%screate_board.html" % home, code=302)
-        buttons_dictionary = {}
-        for button in buttons:
-            buttons_dictionary[button.name] = button.audio_file
-        return render_template("real.html", title = board_name, buttons = buttons_dictionary)
+    return render_template("real.html", title = "default", d={"name":123123})
 
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
