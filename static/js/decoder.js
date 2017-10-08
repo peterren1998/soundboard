@@ -1,9 +1,17 @@
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var source;
-var enc = new TextEncoder("utf-8");
+
+function str2ab(str) {
+  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+  var bufView = new Uint16Array(buf);
+  for (var i=0, strLen=str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
 
 function decode(data) {
-    data = enc.encode(data);
+    data = str2ab(data);
 
     source = audioCtx.createBufferSource();
     audioCtx.decodeAudioData(data, function(buffer) {
