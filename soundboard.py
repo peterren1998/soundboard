@@ -13,9 +13,9 @@ def index():
 def main():
     if request.method == "POST":
         if request.form['change'] and request.form['change'] in boards.keys():
-            return redirect("%sreal/"+request.form['change']+".html" % home, code=302)
+            return redirect("%sreal/%s.html" % (home,request.form['change']), code=302)
         else:
-            return redirect("%sreal2/"+request.form['change']+".html" % home, code=302)
+            return redirect("%sreal2/%s.html" % (home,request.form['change']), code=302)
     buttons_dictionary = {}
     for button in buttons:
         buttons_dictionary[button.name] = button.audio_file
