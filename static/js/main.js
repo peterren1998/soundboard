@@ -115,7 +115,7 @@ function gotStream(stream) {
 
 function initAudio() {
     if (!navigator.getUserMedia)
-        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mediaDevices.getUserMedia;
 
     navigator.getUserMedia(
         {

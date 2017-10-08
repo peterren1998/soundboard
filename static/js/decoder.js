@@ -21,7 +21,7 @@ function decode(data) {
         source.loop = true;
         },
 
-        function(e){ console.log("Error with decoding audio data" + e.err); }
+        function(e){ console.log("Error with decoding audio data " + e.err); }
     );
 
     source.start(0);
