@@ -11,8 +11,12 @@ def index():
 
 @app.route('/test.html', methods=["GET","POST"])
 def main():
-    if request.method == "POST":
+    if request.method == "POST" and request.name == "imma button":
         return redirect("%stest2.html" % home, code=302)
+    elif request.method == "POST" and request.name == "Create New Board":
+        return redirect("%screate_board.html" % home, code=302)
+    elif request.method == "POST":
+        return play(request.name)
     #set_board("default")
     return render_template("test.html")
 
@@ -20,13 +24,11 @@ def main():
 def main2():
     return render_template("test2.html")
 
-"""
-@app.route('/test/%s/%s.html' % (board_name, button_name))
 def play(button_name):
     for button in buttons:
         if button_name == button.name:
-            button.play()
-"""
+            json.dumps(button.audio_file)
+            return make_response(data, 200)
 
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
@@ -35,16 +37,26 @@ def set_board(board_name):
             buttons = board.buttons
     return dump_buttons()
 
-@app.route('/test/create_board/record.html', methods = ['GET', 'POST'])
+@app.route('/create_board.html', methods = ['GET', 'POST'])
+def create_board():
+    if request.method == "POST" and request.name == "Stop":
+        local_buttons.append(Button(request.form['name'], request.form['bitstring']))
+    elif request.method == "POST" and request.name == "Submit":
+        boards.append(Board(request.form['board_name'], local_buttons))
+
+
+"""
+@app.route('/create_board', methods = ['GET', 'POST'])
 def save_audio():
     if request.method == 'POST':
         local_buttons.append(Button(request.form['name'], request.form['bitstring']))
-
-@app.route('/test/create_board/save_package', methods = ['GET', 'POST'])
+"""
+"""
+@app.route('/create_board/save_package', methods = ['GET', 'POST'])
 def save_board():
     if request.method == 'POST':
         boards.append(Board(request.form['name'], local_buttons))
-
+"""
 class Board:
 
     def __init__(self, name):
@@ -72,9 +84,10 @@ class Button:
     def __init__(self, name, audio_file):
         self.name = name
         self.audio_file = audio_file
+"""
+    def play(self):
+"""
 
-    #def play(self):
-        #play self.audioFile
 
 default = Package("default")
 default.add_button(Button("d1", "fileName1"))
