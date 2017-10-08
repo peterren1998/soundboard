@@ -86,7 +86,7 @@ class Button:
 
 default = Board("default")
 default.add_button(Button("d1", "fileName1"))
-default.add_button(Button("d2", "fileName2"))\
+default.add_button(Button("d2", "fileName2"))
 cur_board = default
 boards = [default]
 buttons = default.buttons
