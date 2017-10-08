@@ -4,6 +4,8 @@ var enc = new TextEncoder("utf-8");
 
 function decode(data) {
     data = enc.encode(data);
+
+    source = audioCtx.createBufferSource();
     audioCtx.decodeAudioData(data, function(buffer) {
         source.buffer = buffer;
 

@@ -13,6 +13,7 @@ def index():
 def main():
     return render_template("real.html", title = "default", d={"name":123123})
 
+
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
 #    for button in buttons:
@@ -24,6 +25,7 @@ def set_board(board_name):
     for board in boards:
         if board_name == board.name:
             buttons = board.buttons
+            cur_board = board
     return redirect('%sreal.html' % home, code=302)
 
 @app.route('/create_board.html', methods = ['GET', 'POST'])
@@ -78,6 +80,7 @@ class Button:
 default = Board("default")
 default.add_button(Button("d1", "fileName1"))
 default.add_button(Button("d2", "fileName2"))
+cur_board = default
 boards = [default]
 buttons = default.buttons
 
