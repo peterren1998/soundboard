@@ -19,7 +19,7 @@ def main():
         buttons_dictionary = {}
         for button in buttons:
             buttons_dictionary[button.name] = button.audio_file
-        return render_template("real.html", title = board_name, buttons = buttons_dictionary)
+        return render_template("real.html", title = cur_board.name, buttons = buttons_dictionary)
 
 #@app.route('/buttons/<button_name>.html')
 #def play(button_name):
@@ -32,6 +32,7 @@ def set_board(board_name):
     for board in boards:
         if board_name == board.name:
             buttons = board.buttons
+            cur_board = board
     return redirect('%sreal.html' % home, code=302)
 
 @app.route('/create_board.html', methods = ['GET', 'POST'])
@@ -85,7 +86,8 @@ class Button:
 
 default = Board("default")
 default.add_button(Button("d1", "fileName1"))
-default.add_button(Button("d2", "fileName2"))
+default.add_button(Button("d2", "fileName2"))\
+cur_board = default
 boards = [default]
 buttons = default.buttons
 
