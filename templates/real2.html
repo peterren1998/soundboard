@@ -7,13 +7,18 @@
         {% block title %}
         <h1>{{title}}</h1>
         {% endblock %}
-        <form>
+        <form method="get">
+            Board Name: <input type="text" name="boardname"><br>
+        <form method="post">
             sound name: <input type="text" name="name"><br>
        
         <button onclick="toggleRecording(this)" type="button">Record/Stop</button>
         <input type="hidden" name="bitstring">
         <button name="done" type="submit" formmethod="post">done</button>
         <!-- <button onclick="toggleRecording(this)" type="button" formmethod="post">Stop</button> -->
+        <!-- <a href="#" id="save">Hi</a> -->
+        </form>
+        <button type="submit" formmethod="get">Done</button>
         </form>
     </body>
 </html>

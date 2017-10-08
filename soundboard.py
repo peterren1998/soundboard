@@ -35,6 +35,7 @@ def index():
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
+
     default = Board("default")
     default.add_button(Button("d1", "fileName1"))
     default.add_button(Button("d2", "fileName2"))
