@@ -5,19 +5,49 @@ home = "http://127.0.0.1:5000/"
 
 local_buttons = []
 
+class Board:
+
+    def __init__(self, name, buttons = local_buttons):
+        self.name = name
+        self.buttons = buttons
+        local_buttons = []
+
+    def set_name(self, name):
+        self.name = name
+
+    def add_button(self, button):
+        self.buttons.append(button)
+
+    def change_button(self, name, new_button):
+        for button in self.buttons:
+            if button.name == name:
+                button = new_button
+
+class Button:
+
+    def __init__(self, name, audio_file):
+        self.name = name
+        self.audio_file = audio_file
+
 @app.route("/")
 def index():
     return redirect("%sreal.html" % home, code=302)
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
+    default = Board("default")
+    default.add_button(Button("d1", "fileName1"))
+    default.add_button(Button("d2", "fileName2"))
+    cur_board = default
+    boards = [default]
+    buttons = cur_board.buttons
     if request.method == "POST":
         if request.form['board'] and request.form['board'] in [board.name for board in boards]:
             for board in boards:
                 if request.form['board'] == board.name:
                     cur_board = board
                     buttons = cur_board.buttons
-                    return redirect('%sreal.html' % home, code=302)
+                return redirect('%sreal.html' % home, code=302)
     buttons_dictionary = {}
     for button in buttons:
         buttons_dictionary[button.name] = button.audio_file
@@ -56,39 +86,10 @@ def save_board():
     if request.method == 'POST':
         boards.append(Board(request.form['name'], local_buttons))
 """
-class Board:
 
-    def __init__(self, name, buttons = local_buttons):
-        self.name = name
-        self.buttons = buttons
-        local_buttons = []
-
-    def set_name(self, name):
-        self.name = name
-
-    def add_button(self, button):
-        self.buttons.append(button)
-
-    def change_button(self, name, new_button):
-        for button in self.buttons:
-            if button.name == name:
-                button = new_button
-
-class Button:
-
-    def __init__(self, name, audio_file):
-        self.name = name
-        self.audio_file = audio_file
 """
     def play(self):
 """
-
-default = Board("default")
-default.add_button(Button("d1", "fileName1"))
-default.add_button(Button("d2", "fileName2"))
-cur_board = default
-boards = [default]
-buttons = default.buttons
 
 """
 def dump_buttons():
