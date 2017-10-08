@@ -12,16 +12,7 @@ def index():
 @app.route('/real.html', methods=["GET","POST"])
 def main():
 
-    if request.method == "POST" and request.form['change'] == "":
-        return redirect("%stest2.html" % home, code=302)
-    elif request.method == "POST" and request.name == "Create New Board":
-        return redirect("%screate_board.html" % home, code=302)
-    elif request.method == "GET": #Anything from the drop-down menu goes here.
-        return redirect("%s"+request.name)
-    elif request.method == "POST":
-        return play(request.name)
-    #set_board("default")
-    return render_template("test.html", title = "default", data = [{board.name : board} for board in boards])
+    return render_template("real.html", title = "default", d={"name": 123123123123})
 
 @app.route('/test2.html')
 def main2():
