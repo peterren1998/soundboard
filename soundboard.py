@@ -11,7 +11,7 @@ def index():
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
-     if request.method == "POST":
+    if request.method == "POST":
         if request.form['change'] and request.form['change'] in boards.keys():
             return redirect("%sreal/"+request.form['change']+".html" % home, code=302)
         else:
