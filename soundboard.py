@@ -5,18 +5,23 @@ home = "http://127.0.0.1:5000/"
 
 @app.route("/")
 def index():
-    return redirect("%stest.html" % home, code=302)
+    return redirect("%stest3.html" % home, code=302)
 
-@app.route('/test.html',methods=["GET","POST"])
+@app.route('/test3.html', methods=["GET","POST"])
 def main():
     if request.method == "POST":
         return redirect("%stest2.html" % home, code=302)
-    #set_board("default")
-    return render_template("test.html")
+    #return render_template("test3.html")
+    return render_template("test3.html",
+            data=[{'name':'peter'}, {'name':'michael'}])
 
 @app.route('/test2.html')
 def main2():
     return render_template("test2.html")
+
+@app.route('/test/<var>.html')
+def main3(var):
+    return render_template("%s.html" % var)
 
 """
 @app.route('/test/%s/%s.html' % (board_name, button_name))
