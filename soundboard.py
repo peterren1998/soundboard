@@ -20,6 +20,14 @@ def main():
 def main2():
     return render_template("test2.html")
 
+"""
+@app.route('/test/%s/%s.html' % (board_name, button_name))
+def play(button_name):
+    for button in buttons:
+        if button_name == button.name:
+            button.play()
+"""
+
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
     for board in boards:
