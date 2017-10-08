@@ -11,6 +11,7 @@ def index():
 def main():
     set_board("default")
     return render_template("test.html")
+
 """
 @app.route('/test/%s/%s.html' % (board_name, button_name))
 def play(button_name):
@@ -18,6 +19,7 @@ def play(button_name):
         if button_name == button.name:
             button.play()
 """
+
 @app.route('/test/<board_name>.html')
 def set_board(board_name):
     for board in boards:
