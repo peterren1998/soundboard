@@ -7,7 +7,7 @@ local_buttons = []
 
 @app.route("/")
 def index():
-    return redirect("%sreal2.html" % home, code=302)
+    return redirect("%sreal.html" % home, code=302)
 
 @app.route('/real.html', methods=["GET","POST"])
 def main():
