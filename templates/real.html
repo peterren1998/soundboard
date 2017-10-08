@@ -1,0 +1,22 @@
+<html>
+    <head>
+    <script src="/static/js/decoder.js"></script>
+    </head>
+    <body>
+        <form method="post">
+            Board: <input type="text" name="board"><br>
+            <button name="change" type="submit" formmethod="post">Change Board</button>
+        </form>
+
+        <button onclick="record()" type="button">Record New</button>
+
+        {% block title %}
+        <h1>{{title}}</h1>
+        {% endblock %}
+
+        {% for k,v in d %}
+        <button onclick="decode({{v}})" type="button">{{k}}</button>
+        <br>
+        {% endfor %}
+    </body>
+</html>
