@@ -107,10 +107,18 @@ DEALINGS IN THE SOFTWARE.
   };
 
   Recorder.setupDownload = function(blob, filename){
-    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    var link = document.getElementById("save");
-    link.href = url;
-    link.download = filename || 'output.wav';
+    // var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    // var link = document.getElementById("save");
+    // link.href = url;
+    // link.download = filename || 'output.wav';
+      var fr = new FileReader();
+      console.log(blob);
+      console.log(document.getElementsByName("bitstring"));
+      console.log(fr);
+      fr.readAsBinaryString(blob);
+      console.log(fr);
+      // @TODO: cannot save binary string to value (encoding issue?)
+      document.getElementsByName("bitstring")[0].value = fr.result;
   };
 
   window.Recorder = Recorder;
